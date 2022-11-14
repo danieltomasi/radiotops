@@ -32,13 +32,11 @@ scheduler = BlockingScheduler()
 # This line triggers the tops each hour from start_date. This are the well known "every-hour-tops". Is an "INTERVAL" type trigger
 scheduler.add_job(tops_job, 'interval', hours=1, start_date='2021-04-11 23:59:54')
 
-# This ones trigger tops at 6/7/8:29:54 week days from Monday to Friday. It's a "CRON" type trigger
+# This ones trigger tops at specified time and weekdays. It's a "CRON" type trigger
 scheduler.add_job(tops_job, 'cron', hour=6, minute=29, second=54, day_of_week='mon-fri')
 scheduler.add_job(tops_job, 'cron', hour=7, minute=29, second=54, day_of_week='mon-fri')
-scheduler.add_job(tops_job, 'cron', hour=8, minute=29, second=54, day_of_week='mon-sun')
-
-# This line triggers tops at 14:29:54 every day. Is an "INTERVAL" type trigger
-scheduler.add_job(tops_job, 'interval', hours=24, start_date='2021-04-11 14:29:54')
+scheduler.add_job(tops_job, 'cron', hour=8, minute=29, second=54, day_of_week='sat-sun')
+scheduler.add_job(tops_job, 'cron', hour=14, minute=29, second=54, day_of_week='mon-sun')
 
 # With all the different jobs assigned, now it's time to run the script. 
 # After this, the thread is assigned to the scheduler exclusively, forget about running anything else in this script.
